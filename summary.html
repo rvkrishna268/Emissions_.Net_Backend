@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Summary</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./static/index.css"
+    />
+    <style>
+      .summary-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* height: 75vh; */
+        text-align: center;
+      }
+      .summary-value {
+        margin: 25px;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+    </style>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  </head>
+  <body id="summaryPage">
+    <div class="header">
+      <img src="./static/assets/img1.png" alt="logo" onclick="window.location.href='index.html';" style="cursor: pointer;">
+
+      <h1>GHG Emissions Calculator</h1>
+      
+    </div>
+    
+    <div class="summary-container">
+      <div class="summary-content">
+        <h1>Total Calculated Emissions</h1>
+        <div id="overallCalculatedValue" class="summary-value"></div><br>
+        <div class="sumamry-red-text">
+          <p class="red-text"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+              <polygon fill="orange" points="15,1 29,27 1,27" />
+              <text x="15" y="19" font-size="20" text-anchor="middle" fill="black" font-family="Arial" dy=".3em">!</text>
+            </svg>
+            <b style="color: #ce1141;">
+              NOTE: IF SHARING THESE ESTIMATES WITH EXTERNAL PARTIES, INCLUDING CUSTOMERS, THE FOLLOWING STATEMENT MUST BE INCLUDED ON ALL RELEVANT PAGES OR SLIDES:<br><br>
+              <i>The emission data values presented are estimates based on citable and reputable industry sources, including, but not limited to, API, EPA, and/or GHG Protocol methodology. These estimates are based on standard assumptions for run times, burn rates, and other relevant factors.
+              For more details or a precise calculation specific to your project, please have your Weatherford Representative contact our internal Sustainability Team.</i>
+            </b>
+          </p>
+        </div>
+        <div id="tableCalValues" class="summary-value"></div>
+        <div style = "margin-left : -1300px;"><p class="red-text-index"><b style="color: #ce1141;">For Questions or Feedback Please Contact the Sustainability Team</b></p></div>
+        <div class="navigation-buttons">
+          <button id="prevButton" class="btn btn-secondary highlight-primary" onclick="navigatePrev()">Previous</button>
+          <button id="homeButton" class="btn highlight-primary" onclick="window.location.href='index.html';">Home</button>
+        </div>
+      </div>
+    </div>
+    <script src="./static/index.js"></script>
+    <script>
+      function navigatePrev() {
+      let selectedRig = localStorage.getItem('selectedRigs');
+      console.log(selectedRig);
+  
+      try {
+        selectedRig = JSON.parse(selectedRig);
+      } catch (e) {
+        selectedRig = [selectedRig];
+      }
+
+      if (selectedRig && selectedRig.length > 0) {
+        window.location.href = selectedRig[selectedRig.length - 1];
+      }
+}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" id="landingPage">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Emissions Calculator</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./static/index.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- <script src="./static/index.js"></script> -->
+  </head>
+  <body class="index-body">
+    <div class="header">
+      <!-- <img src="./static/assets/img1.png" alt="logo"> -->
+      <img src="./static/assets/img1.png" alt="logo" onclick="window.location.href='index.html';" style="cursor: pointer;">
+
+      <h1>GHG Emissions Calculator</h1>
+    </div>
+    <div><p class="red-text-index"> 
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+        <polygon fill="orange" points="15,1 29,27 1,27" />
+        <text x="15" y="19" font-size="20" text-anchor="middle" fill="black" font-family="Arial" dy=".3em">!</text>
+      </svg>
+      <b style="color: #ce1141;">
+        NOTE: IF SHARING THESE ESTIMATES WITH EXTERNAL PARTIES, INCLUDING CUSTOMERS, THE FOLLOWING STATEMENT MUST BE INCLUDED ON ALL RELEVANT PAGES OR SLIDES:<br><br>
+        <i>The emission data values presented are estimates based on citable and reputable industry sources, including, but not limited to, API, EPA, and/or GHG Protocol methodology. These estimates are based on standard assumptions for run times, burn rates, and other relevant factors.
+        For more details or a precise calculation specific to your project, please have your Weatherford Representative contact our internal Sustainability Team.</i>
+      </b>
+    </p></div>
+    <div class="landing-container">
+      <h2 class="index-bold">Select the GHG Emissions Calculators</h2>
+      <div class="input-fields">
+        <input
+          type="checkbox"
+          id="rig_ghg"
+          name="operation"
+          value="rig_ghg"
+          onclick="selectRig('page1.html')"
+        />
+        <label for="rig_ghg">Rig GHG Emissions Calculator</label><br />
+        <input
+          type="checkbox"
+          id="generator_ghg"
+          name="operation"
+          value="generator_ghg"
+          onclick="selectRig('page2.html')"
+        />
+        <label for="generator_ghg">Generator GHG Emissions Calculator</label
+        ><br />
+        <input
+          type="checkbox"
+          id="mobile_combustion_ghg"
+          name="operation"
+          value="mobile_combustion_ghg"
+          onclick="selectRig('page3.html')"
+        />
+        <label for="mobile_combustion_ghg"
+          >WFRD Vehicles GHG Emissions (Scope 1) Calculator
+          </label
+        ><br />
+        <input
+          type="checkbox"
+          id="transportation_distribution_ghg"
+          name="operation"
+          value="transportation_distribution_ghg"
+          onclick="selectRig('page4.html')"
+        />
+        <label for="transportation_distribution_ghg"
+          >3rd Party Shipments to and from WRFD / Customer Location (Scope 3 Cat 4 & 9 )
+          </label
+        ><br />
+        <input
+          type="checkbox"
+          id="businessTravel_employeeCommuting_ghg"
+          name="operation"
+          value="businessTravel_employeeCommuting_ghg"
+          onclick="selectRig('page5.html')"
+        />
+        <label for="businessTravel_employeeCommuting_ghg"
+          >Business Travel and Employee Commuting GHG Emissions Calculator</label
+        ><br />
+      </div>
+      <button class="red-bg" onclick="clearInputs()">Clear Inputs</button>
+      <button class="blue-bg" onclick="nextPage()">Continue</button>
+      <script>
+        // Clear localStorage on page load to ensure a fresh start
+        localStorage.clear();
+        </script>
+    </div>
+    <div style = "margin-left : 0px;"><p class="red-text-index"><b style="color: #ce1141;">For Questions or Feedback, Please Contact the Sustainability Team</b></p></div>
+    <script src="./static/index.js"></script>
+  </body>
+</html>

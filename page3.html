@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Emissions Calculators</title>
+    <meta charset="UTF-8" />
+    <title>Emissions Calculators</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./static/index.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <!-- <img src="./static/assets/img1.png" alt="logo"> -->
+      <img
+        src="./static/assets/img1.png"
+        alt="logo"
+        onclick="window.location.href='index.html';"
+        style="cursor: pointer"
+      />
+
+      <h1>GHG Emissions Calculator</h1>
+    </div>
+    <div class="nav">
+      <div class="button-container">
+        <button
+          id="navigateButton1"
+          class="btn btn-primary"
+          onclick="window.location.href='page1.html';"
+        >
+          Rig GHG Emissions Calculator
+        </button>
+      </div>
+      <div class="button-container">
+        <button
+          id="navigateButton2"
+          class="btn btn-primary"
+          onclick="window.location.href='page2.html';"
+        >
+          Generator GHG Emissions Calculator
+        </button>
+      </div>
+      <div class="button-container">
+        <button
+          id="navigateButton3"
+          class="btn btn-primary"
+          onclick="window.location.href='page3.html';"
+        >
+          WFRD Vehicles GHG Emissions (Scope 1) Calculator
+        </button>
+      </div>
+      <div class="button-container">
+        <button
+          id="navigateButton4"
+          class="btn btn-primary"
+          onclick="window.location.href='page4.html';"
+        >
+          3rd Party Shipments to and from WRFD / Customer Location (Scope 3 Cat 4 & 9 )
+        </button>
+      </div>
+      <div class="button-container">
+        <button
+          id="navigateButton5"
+          class="btn btn-primary"
+          onclick="window.location.href='page5.html';"
+        >
+          Business Travel and Employee Commuting GHG Emissions Calculator
+        </button>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Scope 1 Emissions Calculator Section -->
+      <h2 class="scope1-header">
+        WFRD Vehicles GHG Emissions (Scope1) Calculator
+      </h2>
+      <br>
+      <div class="row mb-4">
+        <div>
+          <p class="red-text"> 
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+              <polygon fill="orange" points="15,1 29,27 1,27" />
+              <text x="15" y="19" font-size="20" text-anchor="middle" fill="black" font-family="Arial" dy=".3em">!</text>
+            </svg>
+            <b style="color: #ce1141;">
+              NOTE: IF SHARING THESE ESTIMATES WITH EXTERNAL PARTIES, INCLUDING CUSTOMERS, THE FOLLOWING STATEMENT MUST BE INCLUDED ON ALL RELEVANT PAGES OR SLIDES:<br><br>
+              <i>The emission data values presented are estimates based on citable and reputable industry sources, including, but not limited to, API, EPA, and/or GHG Protocol methodology. These estimates are based on standard assumptions for run times, burn rates, and other relevant factors.
+              For more details or a precise calculation specific to your project, please have your Weatherford Representative contact our internal Sustainability Team.</i>
+            </b>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <h3>Basic GHG Calculator for Mobile Combustion based on Distance</h3>
+          <form id="scope1Form">
+            <div class="form-group col-sm">
+              <label for="vehicleType">Select Vehicle Type:</label>
+              <select class="form-control" id="vehicleType" name="vehicle_type">
+                <option value="">Select Type</option>
+                <option value="Passenger Car">Passenger Car</option>
+                <option value="Light-Duty Truck">Light-Duty Truck</option>
+                <option value="Motorcycle">Motorcycle</option>
+                <option value="Medium- and Heavy-Duty Truck">
+                  Medium- and Heavy-Duty Truck
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-sm">
+              <label for="scope1DistanceUnits">Select Distance Units:</label>
+              <select class="form-control" id="scope1DistanceUnits" name="unit">
+                <option value="Km">Km</option>
+                <option value="Miles">Miles</option>
+              </select>
+            </div>
+            <div class="form-group col-sm">
+              <label for="scope1DistanceAmount">Enter Distance Amount:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="scope1DistanceAmount"
+                name="distance"
+                min="0"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-primary col-sm"
+              onclick="submitScope1Form()"
+            >
+              Calculate Emissions
+            </button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div id="scope1Results" class="mt-3"></div>
+        </div>
+      </div>
+    <div style = "margin-left : 230px;"> <br> <h5>  ~ OR ~ </H5> <br>
+    </div>
+      <!-- Co2 mobile Emissions Calculator Section -->
+      <div class="row">
+        <div class="col-md-6">
+          <h3>
+            Basic GHG Calculator for Mobile Combustion based on Fuel
+            Consumption
+          </h3>
+          <form id="co2MobForm">
+            <div class="form-group col-sm">
+              <label for="fuelType">Select Fuel Type:</label>
+              <select class="form-control" id="fuelType" name="fuel_type">
+                <option value="">Select Type</option>
+                <option value="Motor Gasoline">Motor Gasoline</option>
+                <option value="Diesel Fuel">Diesel Fuel</option>
+                <option value="Liquefied Natural Gas (LNG)">
+                  Liquefied Natural Gas (LNG)
+                </option>
+                <option value="Ethanol (100%)">Ethanol (100%)</option>
+                <option value="Biodiesel (100%)">Biodiesel (100%)</option>
+                <option value="Liquefied Petroleum Gases (LPG) (Propane)">
+                  Liquefied Petroleum Gases (LPG) (Propane)
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-sm">
+              <label for="co2MobFuelUnits">Select Fuel Units:</label>
+              <select class="form-control" id="co2MobFuelUnits" name="unit">
+                <option value="gallons">Gallons</option>
+                <option value="liter">Liter</option>
+              </select>
+            </div>
+            <div class="form-group col-sm">
+              <label for="co2MobFuelAmount">Enter Fuel Amount:</label>
+              <input
+                type="number"
+                class="form-control"
+                id="co2MobFuelAmount"
+                name="fuel_consumption"
+                min="0"
+              />
+            </div>
+            <div class="co2-emissions-button">
+              <button
+                type="button"
+                class="btn btn-primary col-sm"
+                onclick="submitco2MobForm()"
+              >
+                Calculate Emissions
+              </button>
+              <div class="small_text">
+                *Note the emissions calculations above are for CO2 only
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div id="co2MobResults" class="mt-3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="navigation-buttons">
+      <button
+        id="homeButton"
+        class="btn highlight-primary"
+        onclick="window.location.href='index.html';"
+      >
+        Home
+      </button>
+      <button
+        id="prevButton"
+        class="btn btn-secondary highlight-primary"
+        style="display: none"
+        onclick="navigatePrev()"
+      >
+        Previous
+      </button>
+      <button
+        id="nextButton"
+        class="btn btn-secondary highlight-primary"
+        style="display: none"
+        onclick="navigateNext()"
+      >
+        Next
+      </button>
+      <button
+        id="summaryButton"
+        class="btn btn-secondary highlight-primary"
+        style="display: none"
+        onclick="showSummary()"
+      >
+        Summary
+      </button>
+    </div>
+    <div class="methodology">
+      <div id="methodologyTextPage2">
+        <h3>Notes</h3>
+        <div class="method-text">
+            <h4>
+              WFRD Vehicles (Scope 1) Calculations based on Distance
+              (Miles/Kilometers):
+            </h4>
+            <h4>Note:</h4>
+            <p>
+              This calculator is for internal (Weatherford employees) use only.
+            </p>
+  
+            <h4>Methodology/Disclaimers:</h4>
+            <p>
+              Emission Factors utilized are from the US EPA's GHG Emission Factors
+              Hub The factors are based on vehicle type (passenger car, light-duty
+              truck, motorcycle, medium-duty and heavy-duty truck.
+            </p>
+            <p>
+              Please refer to the Weatherford Emissions Calculator Methodology
+              <a href="https://weatherford-my.sharepoint.com/:b:/p/leelaprasad_boddu/EWbTFp6YjmlJqRnrr45ux3kBVI-0q6Dnx0Da95ou1ysBhg?e=Zcn9Xv" target="_blank">page</a> for a more detailed methodology on how the
+              emissions are calculated including references/links to utilized
+              emission factors.
+            </p>
+            <p>
+              This calculator does not provide an output obtained through formal
+              LCA (Life Cycle Analysis), if you need an LCA conducted, please
+              contact the Sustainability Team.
+            </p>
+  
+            <h4>Guidance:</h4>
+            <p>
+              To calculate emissions, simply enter distance in kilometers or miles
+              for the applicable vehicle types.
+            </p>
+        </div>
+
+        <br>
+        <div class="method-text">
+          <h4>
+            WFRD Vehicles (Scope 1) Calculations based on Fuel Consumption (by Fuel Type Consumed):
+          </h4>
+          <h4>Note:</h4>
+          <p>
+            This calculator is for internal (Weatherford employees) use only.
+          </p>
+
+          <h4>Methodology/Disclaimers:</h4>
+          <p>
+            Emission Factors utilized are from the US EPA’s GHG Emission Factors Hub.
+            The factors are based on Fuel Type (Motor gasoline, Diesel Fuel, Liquified Natural Gas (LNG), Ethanol 100%), Biodiesel (100%), and Liquefied Petroleum Gases (LPG) (Propane))            
+          </p>
+          <p>
+            Please refer to the Weatherford Emissions Calculator Methodology <a href="https://weatherford-my.sharepoint.com/:b:/p/leelaprasad_boddu/EWbTFp6YjmlJqRnrr45ux3kBVI-0q6Dnx0Da95ou1ysBhg?e=Zcn9Xv" target="_blank">page</a> for a more detailed methodology on how the emissions are calculated including references/links to utilized emission factors.
+          </p>
+          <p>
+            This calculator does not provide an output obtained through formal LCA (Life Cycle Analysis), if you need an LCA conducted, please contact the Sustainability Team.
+          </p>
+
+          <h4>Guidance:</h4>
+          <p>
+            To calculate emissions, simply enter fuel consumed in liters or gallons for the applicable fuels.
+          </p>
+      </div>
+      </div>
+    </div>
+
+    <script src="./static/index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const selectedRigs =
+          JSON.parse(localStorage.getItem("selectedRigs")) || [];
+
+          const buttons = [
+            { id: 'navigateButton1', rig: 'page1.html' },
+            { id: 'navigateButton2', rig: 'page2.html' },
+            { id: 'navigateButton3', rig: 'page3.html' },
+            { id: 'navigateButton4', rig: 'page4.html' },
+            { id: 'navigateButton5', rig: 'page5.html' },
+        ];
+
+        const currentPage = window.location.pathname.split("/").pop();
+        const currentRig = buttons.find((button) =>
+          currentPage.includes(button.id.replace("navigateButton", "page"))
+        )?.rig;
+        const currentIndex = selectedRigs.indexOf(currentRig);
+        console.log(currentPage, currentIndex, currentRig);
+
+        buttons.forEach((button) => {
+          const navButton = document.getElementById(button.id);
+          if (navButton) {
+            if (selectedRigs.includes(button.rig)) {
+              navButton.classList.add("highlight");
+              navButton.classList.remove("greyed-out");
+            } else {
+              navButton.classList.add("greyed-out");
+              navButton.classList.remove("highlight");
+              navButton.disabled = true;
+            }
+          } else {
+            console.error(`Element with ID ${button.id} not found.`);
+          }
+        });
+
+        if (currentIndex > 0) {
+          document.getElementById("prevButton").style.display = "inline-block";
+        }
+        if (currentIndex < selectedRigs.length - 1) {
+          document.getElementById("nextButton").style.display = "inline-block";
+        }
+        if (currentIndex === selectedRigs.length - 1) {
+          document.getElementById("summaryButton").style.display =
+            "inline-block";
+        }
+
+        function navigatePrev() {
+          if (currentIndex > 0) {
+            // window.location.href = `page${currentIndex}`;
+            window.location.href = selectedRigs[currentIndex - 1];
+          }
+        }
+
+        function navigateNext() {
+          if (currentIndex < selectedRigs.length - 1) {
+            // window.location.href = `page${currentIndex + 2}`;
+            window.location.href = selectedRigs[currentIndex + 1];
+          }
+        }
+
+        window.navigatePrev = navigatePrev;
+        window.navigateNext = navigateNext;
+      });
+    </script>
+  </body>
+</html>

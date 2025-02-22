@@ -1,0 +1,357 @@
+:root{
+    --primary-color: #16c8a8;
+    --secondary-color: #ce1141;
+    --tertiary-color: #24485c;
+}
+
+body {
+    background-color: #f4f4f9;
+    font-family: "Arial", sans-serif;
+}
+
+
+.header {
+    background-color: var(--primary-color); 
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px; 
+    position: relative;
+}
+
+.header>img{
+    float: left;
+    height: 87px;
+    margin-left: 4px;
+    margin-top: -16px;
+}
+
+.red-text{
+    margin-top: -2%;
+    margin-bottom: 2%;
+}
+
+.red-text-index{
+    margin: 1.8rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.sumamry-red-text{
+    text-align: left;
+    margin-left: 2rem;
+    font-size: 0.9em;
+}
+
+.scope1p4-header{
+    font-weight: bold;
+    color: var(--primary-color);font-size: xx-large
+    }
+    
+    .scope1-header{
+    font-weight: bold;
+    color:var(--primary-color);
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.highlight {
+    background-color: var(--tertiary-color) !important;
+    color: white !important;
+}
+
+.highlight-primary{
+    background-color: var(--tertiary-color) !important;
+    color: white !important;
+}
+
+.greyed-out {
+    background-color: #d6d6d6 !important; 
+    color: var(--tertiary-color) !important;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.navigation-buttons{
+    display: flex;
+    column-gap: 15px;
+    margin: 5% 40%;
+}
+
+.landing-container{
+    margin: 3%;
+    margin-left: 15%;
+    margin-top: -1%;
+}
+
+.index-bold{
+    font-size: xx-large;
+    /* font-weight: bold; */
+}
+
+.blue-bg { 
+    background-color: var(--primary-color);
+    border: 1px solid transparent;
+    border-color: var(--primary-color);
+    border-radius: .25rem;
+    color: white;
+}
+
+.red-bg { 
+    background-color: var(--secondary-color);
+    border: 1px solid transparent;
+    border-color: var(--secondary-color);
+    border-radius: .25rem;
+    color: white;
+}
+
+.input-fields{
+    margin: 5%;
+    font-size: large;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+
+.container {
+    padding: 40px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: var(--tertiary-color);
+}
+
+.upstream-header{
+    font-size: 26px;
+}
+
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    margin: 0 10px;
+    border: none;
+}
+
+.tooltip {
+    visibility: hidden;
+    width: 300px;
+    background-color: var(--tertiary-color);
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%; 
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.button-container {
+    position: relative;
+    display: inline-block;
+    margin: 0 10px;
+    padding: 5px;
+}
+
+.small_text{
+    font-size: 15px;
+    text-align: center;
+}
+
+.button-container:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+#refreshButton {
+    position: absolute;
+    top: 100%; 
+    left: 5px;
+    margin: 10px 5px; 
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    padding: 5px 10px; 
+}
+
+#refreshButton:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+label {
+    color: var(--tertiary-color);
+}
+
+.form-control {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+.form-group,
+#results,
+#generatorResults {
+    width: 50%;
+    float: left;
+}
+
+#results {
+    width: 100%;
+}
+
+.result-box {
+    border: 1px solid var(--tertiary-color);
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.moreinfo-box{
+    font-weight: bold;
+    color: var(--tertiary-color);
+    margin-bottom: 5px;
+    font-size: 11px;
+}
+
+.result-label-header {
+    background-color: #d3d3d3;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    color: var(--tertiary-color);
+    text-align: center;
+}
+
+.result-value-large {
+    padding-top: 10px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+}
+
+.result-row {
+    display: flex; 
+    justify-content: space-between; 
+    border-top: 1px solid var(--tertiary-color);
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.result-field {
+    flex: 1; 
+    text-align: center; 
+}
+
+.result-label {
+    font-weight: bold;
+    color: var(--tertiary-color);
+    margin-bottom: 5px; 
+}
+
+.result-value {
+    font-weight: bold;
+}
+
+.result-value-1 {
+    font-weight: bold;
+}
+
+#generatorResults {
+    width: 100%;
+    margin-top: -35px !important; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.total-emissions-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.total-co2e {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.total-co2e-header {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--tertiary-color);
+    background-color: #d3d3d3;
+}
+
+.total-co2e-value {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.individual-emissions {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f0f0f0;
+}
+
+.emission-box {
+    padding: 10px;
+    border-radius: 5px;
+    width: 30%;
+}
+
+.emission-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--tertiary-color);
+}
+
+.methodology {
+    padding: 20px;
+    margin: 40px 40px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    /* height: 40vw; */
+    display: flex;
+}
+
+.methodology h3 {
+    margin-bottom: 15px;
+}
+
+.method-text{
+    padding-left: 25px;
+}
+
+.para-text{
+    padding-left: 25px;
+}

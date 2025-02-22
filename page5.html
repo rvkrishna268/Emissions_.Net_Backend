@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emissions Calculators</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./static/index.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <!-- <img src="./static/assets/img1.png" alt="logo"> -->
+        <img src="./static/assets/img1.png" alt="logo" onclick="window.location.href='index.html';" style="cursor: pointer;">
+
+        <h1>GHG Emissions Calculator</h1>
+    </div>
+    <div class="nav">
+        <div class="button-container">
+          <button
+            id="navigateButton1"
+            class="btn btn-primary"
+            onclick="window.location.href='page1.html';"
+          >
+            Rig GHG Emissions Calculator
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton2"
+            class="btn btn-primary"
+            onclick="window.location.href='page2.html';"
+          >
+            Generator GHG Emissions Calculator
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton3"
+            class="btn btn-primary"
+            onclick="window.location.href='page3.html';"
+          >
+          WFRD Vehicles GHG Emissions (Scope 1) Calculator
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton4"
+            class="btn btn-primary"
+            onclick="window.location.href='page4.html';"
+          >
+          3rd Party Shipments to and from WRFD / Customer Location (Scope 3 Cat 4 & 9 )
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton5"
+            class="btn btn-primary"
+            onclick="window.location.href='page5.html';"
+          >
+            Business Travel and Employee Commuting GHG Emissions calculator
+          </button>
+        </div>
+      </div>
+    <div class="container">
+        <div class="row mb-4">
+          <div>
+            <p class="red-text"> 
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+                <polygon fill="orange" points="15,1 29,27 1,27" />
+                <text x="15" y="19" font-size="20" text-anchor="middle" fill="black" font-family="Arial" dy=".3em">!</text>
+              </svg>
+              <b style="color: #ce1141;">
+                NOTE: IF SHARING THESE ESTIMATES WITH EXTERNAL PARTIES, INCLUDING CUSTOMERS, THE FOLLOWING STATEMENT MUST BE INCLUDED ON ALL RELEVANT PAGES OR SLIDES:<br><br>
+                <i>The emission data values presented are estimates based on citable and reputable industry sources, including, but not limited to, API, EPA, and/or GHG Protocol methodology. These estimates are based on standard assumptions for run times, burn rates, and other relevant factors.
+                For more details or a precise calculation specific to your project, please have your Weatherford Representative contact our internal Sustainability Team.</i>
+              </b>
+            </p>
+          </div>
+            <div class="col-md-6">
+                <h3>Business Travel and Employee Commuting GHG Emissions Calculator (Short-term rental, Taxi, Commute, Fly-in / Fly-Out)</h3>
+                <table class="table" id="businessTravelTable">
+                    <thead>
+                        <tr>
+                            <th>Vehicle Type</th>
+                            <th id="numPassengersHeader" class="hidden">Number of Passengers</th>
+                            <th>Select Distance Unit</th>
+                            <th>Enter Distance</th>
+                            <th>Add Line</th>
+                        </tr>
+                    </thead>
+                    <tbody id="businessTravelTableBody">
+                        <tr>
+                            <td>
+                                <select class="form-control vehicle-type" id="vehicleTypepage5" name="vehicle_type[]">
+                                    <option value="">Select Type</option>
+                                    <option value="Passenger Car">Passenger Car</option>
+                                    <option value="Light-Duty Truck">Light-Duty Truck</option>
+                                    <option value="Motorcycle">Motorcycle</option>
+                                    <option value="Intercity Rail">Intercity Rail</option>
+                                    <option value="Commuter Rail">Commuter Rail</option>
+                                    <option value="Transit Rail">Transit Rail</option>
+                                    <option value="Bus">Bus</option>
+                                    <option value="Air Travel - Short Haul">Air Travel - Helicopter / Short Haul</option>
+                                    <option value="Air Travel - Medium Haul">Air Travel - Medium Haul</option>
+                                    <option value="Air Travel - Long Haul">Air Travel - Long Haul</option>
+                                </select>
+                            </td>
+                            <td class="num-passengers-container hidden">
+                                <input type="number" class="form-control" name="num_passengers[]" min="0"/>
+                            </td>
+                            <td>
+                                <select class="form-control" name="distance_unit[]">
+                                    <option value="">Select Type</option>
+                                    <option value="km">KM</option>
+                                    <option value="miles">Miles</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="distance[]" min="0" />
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success blue-bg" onclick="addRowPage5('businessTravelTableBody')">+</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-primary col-sm" onclick="submitScopeForm('business_travel')">Calculate Emissions</button>
+            </div>
+            <div class="col-md-6">
+                <div id="results" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation-buttons">
+        <button id="homeButton" class="btn highlight-primary" onclick="window.location.href='index.html';">Home</button>
+        <button id="prevButton" class="btn btn-secondary highlight-primary" style="display:none;" onclick="navigatePrev()">Previous</button>
+        <button id="nextButton" class="btn btn-secondary highlight-primary" style="display:none;" onclick="navigateNext()">Next</button>
+        <button id="summaryButton" class="btn btn-secondary highlight-primary" style="display:none;" onclick="showSummary()">Summary</button>
+  </div>
+    <div class="methodology">
+      <div id="methodologyTextPage2">
+          <h3>Notes</h3>
+          <h4>Business Travel (Scope 3 Category 6) and Employee Commuting (Short-term Rental, Taxi, Commute, Fly-in / Fly-Out) (Scope 3 Category 7)</h4>
+          <h4>Note: </h4>
+          <p>This calculator is for internal (Weatherford employees) use only.</p>
+          
+          <h4>Methodology/Disclaimers:</h4>
+          <p>Emission Factors utilized are from the US EPA’s GHG Emission Factors Hub.</p>
+          
+          <p>Please refer to the Weatherford Emissions Calculator Methodology <a href="https://weatherford-my.sharepoint.com/:b:/p/leelaprasad_boddu/EWbTFp6YjmlJqRnrr45ux3kBVI-0q6Dnx0Da95ou1ysBhg?e=Zcn9Xv" target="_blank">page</a> for a more detailed methodology on how the emissions are calculated including references/links to utilized emission factors.</p>
+          
+          <p>This calculator does not provide an output obtained through a formal LCA (Life Cycle Analysis), if you need an LCA conducted, please contact the Sustainability Team.</p>
+          
+         <h4> Guidance:</h4>
+          <p>To calculate emissions for Scope 3 Category 6 (Business Travel), and Scope 3 Category 7 (Employee Commuting) simply enter the distance in kilometers or miles for the applicable vehicle type/travel/commuting mode options (Passenger Car, Light-Duty-Truck, Motorcycle, Intercity Rail, Commuter Rail, Transit Rail, Bus, Air Travel - Medium Haul (>= 300 miles, < 2300 miles), Air Travel - Medium Haul (>= 300 miles, < 2300 miles), or Air Travel - Long Haul (>= 2300 miles)).</p>
+          
+          <p>Also be sure to add the number of passengers for the following modes of travel: Intercity Rail, Commuter Rail, Transit Rail, Bus, Air Travel - Medium Haul (>= 300 miles, < 2300 miles), Air Travel - Medium Haul (>= 300 miles, < 2300 miles), and Air Travel - Long Haul (>= 2300 miles)) since the factors are based on number of passengers.</p>
+          
+          <h4>Definitions:</h4>
+          <h4>Passenger cars:</h4> <p>Automobiles used primarily to transport 12 people or less for personal travel and are less than 8,500 lbs in gross vehicle weight.</p>
+          <h4>Light-duty trucks:</h4> <p>Vehicles that primarily transport passengers such as sport utility vehicles (SUVs) and minivans. This category also includes vehicles used for transporting light-weight cargo which are equipped with special features such as four-wheel drive for off-road operation. The gross vehicle weight normally ranges around 8,500 pounds or less.</p>
+          <h4>Intercity rail:</h4> <p>Long-distance rail between major cities.</p>
+          <h4>Commuter rail:</h4> <p>Rail service between a central city and adjacent suburbs (also called regional rail or suburban rail). </p>
+          <h4>Transit rail:</h4><p> Rail typically within an urban center, such as subways, elevated railways, metropolitan railways (metro), streetcars, trolley cars, and tramways.</p>
+          
+          
+        </div>
+    </div>
+    <script src="./static/index.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const selectedRigs = JSON.parse(localStorage.getItem('selectedRigs')) || [];
+
+          const buttons = [
+            { id: 'navigateButton1', rig: 'page1.html' },
+            { id: 'navigateButton2', rig: 'page2.html' },
+            { id: 'navigateButton3', rig: 'page3.html' },
+            { id: 'navigateButton4', rig: 'page4.html' },
+            { id: 'navigateButton5', rig: 'page5.html' },
+        ];
+
+          const currentPage = window.location.pathname.split('/').pop();
+          const currentRig = buttons.find(button => currentPage.includes(button.id.replace('navigateButton', 'page')))?.rig;
+          const currentIndex = selectedRigs.indexOf(currentRig);
+        console.log(currentPage, currentIndex, currentRig)
+
+
+          buttons.forEach(button => {
+              const navButton = document.getElementById(button.id);
+              if (navButton) {
+                  if (selectedRigs.includes(button.rig)) {
+                      navButton.classList.add('highlight');
+                      navButton.classList.remove('greyed-out');
+                  } else {
+                      navButton.classList.add('greyed-out');
+                      navButton.classList.remove('highlight');
+                      navButton.disabled = true;
+                  }
+              } else {
+                  console.error(`Element with ID ${button.id} not found.`);
+              }
+          });
+
+          if (currentIndex > 0) {
+              document.getElementById('prevButton').style.display = 'inline-block';
+          }
+          if (currentIndex < selectedRigs.length - 1) {
+              document.getElementById('nextButton').style.display = 'inline-block';
+          }
+          if (currentIndex === selectedRigs.length - 1) {
+              document.getElementById('summaryButton').style.display = 'inline-block';
+          }
+
+          function navigatePrev() {
+              if (currentIndex > 0) {
+                //   window.location.href = `page${currentIndex}`;
+                window.location.href = selectedRigs[currentIndex-1];
+
+              }
+          }
+
+          function navigateNext() {
+              if (currentIndex < selectedRigs.length - 1) {
+                //   window.location.href = `page${currentIndex + 2}`;
+                window.location.href = selectedRigs[currentIndex+1];
+
+              }
+          }
+
+          window.navigatePrev = navigatePrev;
+          window.navigateNext = navigateNext;
+      });
+  </script>
+</body>
+</html>

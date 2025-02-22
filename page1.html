@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emissions Calculators</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="./static/index.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <!-- <img src="./static/assets/img1.png" alt="logo"> -->
+        <img src="./static/assets/img1.png" alt="logo" onclick="window.location.href='index.html';" style="cursor: pointer;">
+
+        <h1>GHG Emissions Calculator</h1>
+    </div>
+    <div class="nav">
+        <div class="button-container">
+          <button
+            id="navigateButton1"
+            class="btn btn-primary"
+            onclick="window.location.href='page1.html';"
+          >
+            Rig GHG Emissions Calculator
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton2"
+            class="btn btn-primary"
+            onclick="window.location.href='page2.html';"
+          >
+            Generator GHG Emissions Calculator
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton3"
+            class="btn btn-primary"
+            onclick="window.location.href='page3.html';"
+          >
+          WFRD Vehicles GHG Emissions (Scope 1) Calculator
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton4"
+            class="btn btn-primary"
+            onclick="window.location.href='page4.html';"
+          >
+          3rd Party Shipments to and from WRFD / Customer Location (Scope 3 Cat 4 & 9 )
+          </button>
+        </div>
+        <div class="button-container">
+          <button
+            id="navigateButton5"
+            class="btn btn-primary"
+            onclick="window.location.href='page5.html';"
+          >
+            Business Travel and Employee Commuting GHG Emissions Calculator
+          </button>
+        </div>
+      </div>
+    <div class="container">
+        <!-- Rig Emissions Calculator Section -->
+        <div class="row mb-4">
+            <div>
+                <p class="red-text"> 
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+                    <polygon fill="orange" points="15,1 29,27 1,27" />
+                    <text x="15" y="19" font-size="20" text-anchor="middle" fill="black" font-family="Arial" dy=".3em">!</text>
+                  </svg>
+                  <b style="color: #ce1141;">
+                    NOTE: IF SHARING THESE ESTIMATES WITH EXTERNAL PARTIES, INCLUDING CUSTOMERS, THE FOLLOWING STATEMENT MUST BE INCLUDED ON ALL RELEVANT PAGES OR SLIDES:<br><br>
+                    <i>The emission data values presented are estimates based on citable and reputable industry sources, including, but not limited to, API, EPA, and/or GHG Protocol methodology. These estimates are based on standard assumptions for run times, burn rates, and other relevant factors.
+                    For more details or a precise calculation specific to your project, please have your Weatherford Representative contact our internal Sustainability Team.</i>
+                  </b>
+                </p>
+              </div>
+            <div class="col-md-6">
+                <h3>Rig Emissions Calculator</h3>
+                <form id="emissionsForm">
+                    <div class="form-group col-sm">
+                        <label for="rigType">Select Rig Type:</label>
+                        <select class="form-control" id="rigType" name="rig_type" onchange="updateRigOptions()">
+                            <option value="">Select Type</option>
+                            <option value="Onshore">Onshore</option>
+                            <option value="Offshore">Offshore</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-sm">
+                        <label for="rig">Select Rig:</label>
+                        <select class="form-control" id="rig" name="rig_type"></select>
+                    </div>
+                    <div class="form-group hidden col-sm" id="savingsTypeSection">
+                        <label for="savingsType">Select Savings Type:</label>
+                        <select class="form-control" id="savingsType" name="savings_type" onchange="toggleSavingsType()">
+                            <option value="Time">Time</option>
+                            <option value="Fuel">Fuel</option>
+                        </select>
+                    </div>
+                    <div class="form-group hidden col-sm" id="timeSection">
+                        <label for="timeUnits">Select Time Units:</label>
+                        <select class="form-control" id="timeUnits" name="time_units">
+                            <option value="Hours">Hours</option>
+                            <option value="Days">Days(24Hrs)</option>
+                        </select>
+                        <label for="timeAmount">Enter Time Amount:</label>
+                        <input type="number" class="form-control" id="timeAmount" name="time_amount" min="0" />
+
+                        <!-- <label for="timeHours">Enter Time in Hours:</label>
+                        <input type="number" class="form-control" id="timeHours" name="time_hours" min="0" />
+                        <label for="timeDays">Enter Time in Days:</label>
+                        <input type="number" class="form-control" id="timeDays" name="time_days" min="0" /> -->
+                    </div>
+                    <div class="form-group hidden col-sm" id="fuelSection">
+                        <label for="fuelUnits">Select Fuel Units:</label>
+                        <select class="form-control" id="fuelUnits" name="fuel_units">
+                            <option value="Gallons">Gallons</option>
+                            <option value="Liters">Liters</option>
+                        </select>
+                        <label for="fuelAmount">Enter Fuel Amount:</label>
+                        <input type="number" class="form-control" id="fuelAmount" name="fuel_amount" min="0" />
+                    </div>
+                    <button type="button" class="btn btn-primary col-sm" onclick="submitForm()">Calculate Emissions</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <div id="results" class="mt-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="navigation-buttons">
+        <button id="homeButton" class="btn highlight-primary" onclick="window.location.href='index.html';">Home</button>
+        <button id="prevButton" class="btn btn-secondary highlight-primary" style="display:none;" onclick="navigatePrev()">Previous</button>
+        <button id="nextButton" class="btn btn-secondary highlight-primary" style="display:none;" onclick="navigateNext()">Next</button>
+        <button id="summaryButton" class="btn btn-secondary highlight-primary" style="display:none;" onclick="showSummary()">Summary</button>
+  </div>
+    <div class="methodology">
+        <div id="methodologyText">
+            <h3>Notes</h3>
+            <div class="method-text">
+                <h4>Rigs:</h4> <br/>
+
+                <h4>Note: </h4>
+                <p>This calculator is for internal (Weatherford employees) use only.</p>
+
+                <h4>Methodology/Disclaimers:</h4>
+                <p>The rig emissions calculations results obtained through this calculator are estimates based on emissions factors published by the American Petroleum Institute (API) and rig engines specifications (power rating, etc.,) that are typical and align with the type of rig selected (onshore, offshore (drillship, semi-submersible, and jack-up rig). </p>
+
+                <p>Please refer to the Weatherford Emissions Calculator Methodology <a href="https://weatherford-my.sharepoint.com/:b:/p/leelaprasad_boddu/EWbTFp6YjmlJqRnrr45ux3kBVI-0q6Dnx0Da95ou1ysBhg?e=Zcn9Xv">page</a> for a more detailed methodology on how the emissions are calculated including references/links to utilized emission factors and rigs/engines specific information.</p>
+
+                <p>If you need more precise emissions calculations for rigs based on a certain rig, and you have the rig name available, please contact the Sustainability Team for a more precise calculation utilizing rig specific engines specifications (number of engines, engines power ratings (i.e., KW, horsepower, etc.,).</p>
+
+                <p>This calculator does not provide an output obtained through a formal LCA (Life Cycle Analysis), if you need an LCA conducted, please contact the Sustainability Team.</p>
+
+                <h4>Guidance:</h4>
+                <p>To calculate emissions, simply enter rig operation time in hours or days.</p>
+            </div>
+        </div>
+    </div>
+    
+
+  <script src="./static/index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectedRigs = JSON.parse(localStorage.getItem('selectedRigs')) || [];
+
+        const buttons = [
+            { id: 'navigateButton1', rig: 'page1.html' },
+            { id: 'navigateButton2', rig: 'page2.html' },
+            { id: 'navigateButton3', rig: 'page3.html' },
+            { id: 'navigateButton4', rig: 'page4.html' },
+            { id: 'navigateButton5', rig: 'page5.html' },
+        ];
+
+        const currentPage = window.location.pathname.split('/').pop();
+        const currentRig = buttons.find(button => currentPage.includes(button.id.replace('navigateButton', 'page')))?.rig;
+        const currentIndex = selectedRigs.indexOf(currentRig);
+        console.log(currentPage, currentIndex, currentRig)
+
+        buttons.forEach(button => {
+            const navButton = document.getElementById(button.id);
+            if (navButton) {
+                if (selectedRigs.includes(button.rig)) {
+                    navButton.classList.add('highlight');
+                    navButton.classList.remove('greyed-out');
+                } else {
+                    navButton.classList.add('greyed-out');
+                    navButton.classList.remove('highlight');
+                    navButton.disabled = true;
+                }
+            } else {
+                console.error(`Element with ID ${button.id} not found.`);
+            }
+        });
+
+        if (currentIndex > 0) {
+            document.getElementById('prevButton').style.display = 'inline-block';
+        }
+        if (currentIndex < selectedRigs.length - 1) {
+            document.getElementById('nextButton').style.display = 'inline-block';
+        }
+        if (currentIndex === selectedRigs.length - 1) {
+            document.getElementById('summaryButton').style.display = 'inline-block';
+        }
+
+        function navigatePrev() {
+            if (currentIndex > 0) {
+                // window.location.href = `page${currentIndex}`;
+                window.location.href = selectedRigs[currentIndex-1];
+            }
+        }
+
+        function navigateNext() {
+            if (currentIndex < selectedRigs.length - 1) {
+                // window.location.href = `page${currentIndex + 2}`;
+                window.location.href = selectedRigs[currentIndex+1]
+            }
+        }
+
+        window.navigatePrev = navigatePrev;
+        window.navigateNext = navigateNext;
+    });
+</script>
+</body>
+</html>
