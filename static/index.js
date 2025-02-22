@@ -610,6 +610,7 @@ class Scope3Calculator {
 }
 
 const calculatePage1 = (reqBody) => {
+  console.log(reqBody)
   let data = reqBody;
   let calculator = new RigEmissionsCalculator();
   let result = calculator.calculateEmissions(
@@ -624,6 +625,8 @@ const calculatePage1 = (reqBody) => {
 };
 
 const calculatePage2 = (reqBody) => {
+  console.log(reqBody)
+
   let data = reqBody;
   let calculator = new GeneratorEmissionsCalculator();
   let result = calculator.calculateEmissions(
@@ -634,6 +637,8 @@ const calculatePage2 = (reqBody) => {
 };
 
 const calculatePage3Scope1Emiss = (reqBody) => {
+  console.log(reqBody)
+
   try {
     let data = reqBody;
     let calculator = new Scope1EmissionsCalculator();
@@ -653,6 +658,8 @@ const calculatePage3Scope1Emiss = (reqBody) => {
 };
 
 const calculatePage3Co2MobileFuelEmiss = (reqBody) => {
+  console.log(reqBody)
+
   try {
     let data = reqBody;
     let calculator = new Co2MblFuelAmountCalculator();
@@ -672,6 +679,8 @@ const calculatePage3Co2MobileFuelEmiss = (reqBody) => {
 };
 
 const calculatePageScope3 = (reqBody) => {
+  console.log(reqBody)
+
   try {
     let data = reqBody;
     if (!data.length) {
@@ -732,26 +741,32 @@ function submitForm() {
       formData[this.name] = $(this).val() || "0";
     });
 
-  try {
-
-    const response = calculatePage1(formData)
-    if (response && response.CO2e !== undefined && !isNaN(response.CO2e)) {
-      displayResults(response, "results");
-      formData.rig = $("#rigType").val();
-
-      localStorage.setItem("page1_req", JSON.stringify(formData));
-      localStorage.setItem("page1_res", JSON.stringify(response));
-    } else {
-      $("#results").html(
-        "<h3>Error: Invalid response received from the server.</h3>"
-      );
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    $("#results").html(
-      "<h3>Error: Could not reach the server. Please try again later.</h3>"
-    );
-  }
+    $.ajax({
+      url: "http://localhost:5134/api/calculations/calculatePage1",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(formData),
+      success: function (response) {
+        if (response && response.CO2e !== undefined && !isNaN(response.CO2e)) {
+          displayResults(response, "results");
+          formData.rig = $("#rigType").val();
+  
+          localStorage.setItem("page1_req", JSON.stringify(formData));
+          localStorage.setItem("page1_res", JSON.stringify(response));
+        } else {
+          $("#results").html(
+            "<h3>Error: Invalid response received from the server.</h3>"
+          );
+        }
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr.status, xhr.statusText);
+        console.log(error);
+        $("#results").html(
+          "<h3>Error: Could not reach the server. Please try again later.</h3>"
+        );
+      },
+    });
 }
 
 function submitGeneratorForm() {
@@ -762,24 +777,31 @@ function submitGeneratorForm() {
       formData[this.name] = $(this).val() || "0";
     });
 
-  try {
-
-    const response = calculatePage2(formData)
-    if (response && response.CO2e !== undefined && !isNaN(response.CO2e)) {
-      displayResults(response, "generatorResults");
-      localStorage.setItem("page2_req", JSON.stringify(formData));
-      localStorage.setItem("page2_res", JSON.stringify(response));
-    } else {
-      $("#generatorResults").html(
-        "<h3>Error: Invalid response received from the server.</h3>"
-      );
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    $("#generatorResults").html(
-      "<h3>Error: Could not reach the server. Please try again later.</h3>"
-    );
-  }
+    $.ajax({
+      url: "http://localhost:5134/api/calculations/calculatePage2",
+      // url: "/calculate_generator",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(formData),
+      success: function (response) {
+        if (response && response.CO2e !== undefined && !isNaN(response.CO2e)) {
+          displayResults(response, "generatorResults");
+          localStorage.setItem("page2_req", JSON.stringify(formData));
+          localStorage.setItem("page2_res", JSON.stringify(response));
+        } else {
+          $("#generatorResults").html(
+            "<h3>Error: Invalid response received from the server.</h3>"
+          );
+        }
+      },
+      error: function (xhr, status, error) {
+        console.log(xhr.status, xhr.statusText);
+        console.log(error);
+        $("#results").html(
+          "<h3>Error: Could not reach the server. Please try again later.</h3>"
+        );
+      },
+    });
 }
 
 function submitScope1Form() {
@@ -790,23 +812,30 @@ function submitScope1Form() {
       formData[this.name] = $(this).val() || "0";
     });
 
-  try {
-    const response = calculatePage3Scope1Emiss(formData)
-    if (response && response.CO2e !== undefined && !isNaN(response.CO2e)) {
-      displayResults(response, "scope1Results");
-      localStorage.setItem("page3_req", JSON.stringify(formData));
-      localStorage.setItem("page3_res", JSON.stringify(response));
-    } else {
-      $("#scope1Results").html(
-        "<h3>Error: Invalid response received from the server.</h3>"
-      );
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    $("#scope1Results").html(
-      "<h3>Error: Could not reach the server. Please try again later.</h3>"
-    );
-  }
+    $.ajax({
+      url: "http://localhost:5134/api/calculations/calculatePage3Scope1Emiss",
+      // url: "/calculate_scope1_emissions",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(formData),
+      success: function (response) {
+        if (response && response.CO2e !== undefined && !isNaN(response.CO2e)) {
+          displayResults(response, "scope1Results");
+          localStorage.setItem("page3_req", JSON.stringify(formData));
+          localStorage.setItem("page3_res", JSON.stringify(response));
+        } else {
+          $("#scope1Results").html(
+            "<h3>Error: Invalid response received from the server.</h3>"
+          );
+        }
+      },
+      error: function (error) {
+        console.error("Error:", error);
+        $("#scope1Results").html(
+          "<h3>Error: Could not reach the server. Please try again later.</h3>"
+        );
+      },
+    });
 }
 
 function submitco2MobForm() {
@@ -817,27 +846,34 @@ function submitco2MobForm() {
       formData[this.name] = $(this).val() || "0";
     });
 
-  try {
-    const response = calculatePage3Co2MobileFuelEmiss(formData)
-    if (
-      response &&
-      response.metric_ton_co2 !== undefined &&
-      !isNaN(response.metric_ton_co2)
-    ) {
-      displayOnlyCo2Results(response, "co2MobResults");
-      localStorage.setItem("page3_req2", JSON.stringify(formData));
-      localStorage.setItem("page3_res2", JSON.stringify(response));
-    } else {
-      $("#co2MobResults").html(
-        "<h3>Error: Invalid response received from the server.</h3>"
-      );
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    $("#co2MobResults").html(
-      "<h3>Error: Could not reach the server. Please try again later.</h3>"
-    );
-  }
+    $.ajax({
+      url: "http://localhost:5134/api/calculations/calculatePage3Co2MobileFuelEmiss",
+      // url: "/co2_mobile_fuel_amount",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(formData),
+      success: function (response) {
+        if (
+          response &&
+          response.metric_ton_co2 !== undefined &&
+          !isNaN(response.metric_ton_co2)
+        ) {
+          displayOnlyCo2Results(response, "co2MobResults");
+          localStorage.setItem("page3_req2", JSON.stringify(formData));
+          localStorage.setItem("page3_res2", JSON.stringify(response));
+        } else {
+          $("#co2MobResults").html(
+            "<h3>Error: Invalid response received from the server.</h3>"
+          );
+        }
+      },
+      error: function (error) {
+        console.error("Error:", error);
+        $("#co2MobResults").html(
+          "<h3>Error: Could not reach the server. Please try again later.</h3>"
+        );
+      },
+    });
 
 }
 
